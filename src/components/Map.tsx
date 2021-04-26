@@ -28,7 +28,7 @@ export const MapComponent = () => {
           lng: position.coords.longitude,
         });
         const res = await axios.post(
-          "http://ach4l.pythonanywhere.com/findhosp",
+          "https://ach4l.pythonanywhere.com/findhosp",
           {
             lat: position.coords.latitude,
             long: position.coords.longitude,
