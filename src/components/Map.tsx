@@ -6,7 +6,7 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import axios from "axios";
-import { useSelectedButton } from "../context/ButtonSelection";
+// import { useSelectedButton } from "../context/ButtonSelection";
 
 const containerStyle = {
   width: "100vw",
@@ -17,8 +17,7 @@ export const MapComponent = () => {
   const [current, setCurrent] = useState({ lat: 18.4264677, lng: 79.1339878 });
   const [response, setResponse] = useState({});
   const [selectedCenter, setSelectedCenter] = useState<any | null>(null);
-  const { selctedButton } = useSelectedButton();
-  console.log(selctedButton);
+  // const { selctedButton } = useSelectedButton();
 
   useEffect(() => {
     if ("geolocation" in navigator) {
