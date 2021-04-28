@@ -34,8 +34,8 @@ export const RenderMarkers: React.FC<RenderMarkersProps> = ({ positions }) => {
             icon={customMarker}
             key={value}
             position={{
-              lat: position["Lat"],
-              lng: position["Long"],
+              lat: position["lat"],
+              lng: position["long"],
             }}
           >
             <Popup minWidth={90}>
@@ -51,7 +51,7 @@ export const RenderMarkers: React.FC<RenderMarkersProps> = ({ positions }) => {
                   </a>
                 </div>
                 <div style={{ color: "blue" }}>
-                  <a href={createNavLink(position["Lat"], position["Long"])}>
+                  <a href={createNavLink(position["lat"], position["long"])}>
                     Directions{" "}
                   </a>
                 </div>

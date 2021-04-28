@@ -41,8 +41,8 @@ const MapComponent = () => {
     if (mapData) {
       Object.entries(mapData).forEach((key: any, _value: any) => {
         const position = key[1];
-        lats.push(position["Lat"]);
-        longs.push(position["Long"]);
+        lats.push(position["lat"]);
+        longs.push(position["long"]);
       });
       const sumLat = lats.reduce((a: number, b: number) => a + b, 0);
       const sumLong = longs.reduce((a: number, b: number) => a + b, 0);
@@ -64,11 +64,11 @@ const MapComponent = () => {
       Object.entries(mapData).map((key: any, _value: any) => {
         const position = key[1];
         if (selctedButton === Options.IcuBeds) {
-          if (position["Vacant_ICU_beds"] > 0) {
+          if (position["Available_ICU"] > 0) {
             localPositions.push(position);
           }
         } else if (selctedButton === Options.Beds) {
-          if (position["Vacant_normal_beds"] > 0) {
+          if (position["Available_Gen"] > 0) {
             localPositions.push(position);
           }
         } else if (selctedButton === Options.Hospitals) {
