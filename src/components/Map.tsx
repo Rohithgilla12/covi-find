@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import useSWR from "swr";
-import "leaflet/dist/leaflet.css";
+// import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 // import { useSelectedButton } from "../context/ButtonSelection";
 
@@ -85,9 +85,6 @@ const MapComponent = () => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker icon={customMarker} position={[current.lat, current.lng]}>
-        <Popup>Hello</Popup>
-      </Marker>
       {mapData &&
         Object.entries(mapData).map((key: any, value: any) => {
           const position = key[1];
