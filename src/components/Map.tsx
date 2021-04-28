@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import useSWR from "swr";
 // import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-// import { useSelectedButton } from "../context/ButtonSelection";
+import { Options, useSelectedButton } from "../context/ButtonSelection";
+import { RenderMarkers } from "./RenderMarkers";
 
 const containerStyle = {
   width: "100vw",
   height: "80vh",
 };
-
-const customMarker = L.icon({
-  iconUrl: "/icu-bed.png",
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-});
 interface MapProps {
   center: any;
   zoom?: number;
@@ -31,19 +24,16 @@ const MapComponent = () => {
   const [current, setCurrent] = useState({ lat: 18.4264677, lng: 79.1339878 });
   var lats: Array<number> = [];
   var longs: Array<number> = [];
+  const [positions, setPositions] = useState();
+
+  const { selctedButton } = useSelectedButton();
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-  const createNavLink = (lat: number, long: number) => {
-    if (
-      navigator.platform.indexOf("iPhone") != -1 ||
-      navigator.platform.indexOf("iPod") != -1 ||
-      navigator.platform.indexOf("iPad") != -1
-    )
-      return `maps://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=${lat},${long}`;
-    else
-      return `https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=${lat},${long}`;
-  };
+  const { data: mapData, error: _mapError } = useSWR(
+    "https://ach4l.pythonanywhere.com/covifind/delhi",
+    fetcher
+  );
 
   const getCenterPoint = () => {
     lats = [];
@@ -51,7 +41,6 @@ const MapComponent = () => {
     if (mapData) {
       Object.entries(mapData).forEach((key: any, _value: any) => {
         const position = key[1];
-        console.log(position);
         lats.push(position["Lat"]);
         longs.push(position["Long"]);
       });
@@ -61,18 +50,34 @@ const MapComponent = () => {
         lat: sumLat / lats.length,
         lng: sumLong / longs.length,
       });
+      setPositions(mapData);
     }
   };
-
-  const { data: mapData, error: _mapError } = useSWR(
-    "https://ach4l.pythonanywhere.com/covifind/delhi",
-    fetcher
-  );
-  // const { selctedButton } = useSelectedButton();
 
   useEffect(() => {
     getCenterPoint();
   }, [mapData]);
+
+  useEffect(() => {
+    var localPositions: any = [];
+    if (mapData) {
+      Object.entries(mapData).map((key: any, _value: any) => {
+        const position = key[1];
+        if (selctedButton === Options.IcuBeds) {
+          if (position["Vacant_ICU_beds"] > 0) {
+            localPositions.push(position);
+          }
+        } else if (selctedButton === Options.Beds) {
+          if (position["Vacant_normal_beds"] > 0) {
+            localPositions.push(position);
+          }
+        } else if (selctedButton === Options.Hospitals) {
+          localPositions.push(position);
+        }
+      });
+    }
+    setPositions(localPositions);
+  }, [selctedButton]);
 
   return (
     <MapContainer
@@ -85,40 +90,7 @@ const MapComponent = () => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {mapData &&
-        Object.entries(mapData).map((key: any, value: any) => {
-          const position = key[1];
-          return (
-            <Marker
-              icon={customMarker}
-              key={value}
-              position={{
-                lat: position["Lat"],
-                lng: position["Long"],
-              }}
-            >
-              <Popup minWidth={90}>
-                <div style={{ color: "black" }}>
-                  <div>{position["Hosp_name"]}</div>
-                  <div>{position["Govt"]}</div>
-                  <div>Lasted updated at {position["Last_updated"]}</div>
-                  <div>Vacant ICU Beds {position["Vacant_ICU_beds"]}</div>
-                  <div>Vacant Normal beds {position["Vacant_normal_beds"]}</div>
-                  <div style={{ color: "blue" }}>
-                    <a href={`tel:${position["Contact"].split(";")[0]}`}>
-                      Contact {position["Contact"]}
-                    </a>
-                  </div>
-                  <div style={{ color: "blue" }}>
-                    <a href={createNavLink(position["Lat"], position["Long"])}>
-                      Directions{" "}
-                    </a>
-                  </div>
-                </div>
-              </Popup>
-            </Marker>
-          );
-        })}
+      {positions && <RenderMarkers positions={positions} />}
     </MapContainer>
   );
 };
