@@ -42,14 +42,15 @@ export const RenderMarkers: React.FC<RenderMarkersProps> = ({ positions }) => {
               <div style={{ color: "black" }}>
                 <div>{position["Hosp_name"]}</div>
                 <div>{position["Govt"]}</div>
-                <div>Lasted updated at {position["Last_updated"]}</div>
-                <div>Vacant ICU Beds {position["Vacant_ICU_beds"]}</div>
-                <div>Vacant Normal beds {position["Vacant_normal_beds"]}</div>
-                <div style={{ color: "blue" }}>
-                  <a href={`tel:${position["Contact"].split(";")[0]}`}>
-                    Contact {position["Contact"]}
-                  </a>
-                </div>
+                <div>Vacant ICU Beds {position["Available_ICU"]}</div>
+                <div>Vacant Normal beds {position["Available_Gen"]}</div>
+                {position["Contact"] && (
+                  <div style={{ color: "blue" }}>
+                    <a href={`tel:${position["Contact"].split(";")[0]}`}>
+                      Contact {position["Contact"]}
+                    </a>
+                  </div>
+                )}
                 <div style={{ color: "blue" }}>
                   <a href={createNavLink(position["lat"], position["long"])}>
                     Directions{" "}

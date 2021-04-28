@@ -20,7 +20,11 @@ export const ChangeView: React.FC<MapProps> = ({ center, zoom }) => {
   return null;
 };
 
-const MapComponent = () => {
+interface MapComponentProps {
+  id: string;
+}
+
+const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
   const [current, setCurrent] = useState({ lat: 18.4264677, lng: 79.1339878 });
   var lats: Array<number> = [];
   var longs: Array<number> = [];
@@ -31,7 +35,7 @@ const MapComponent = () => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
   const { data: mapData, error: _mapError } = useSWR(
-    "https://ach4l.pythonanywhere.com/covifind/delhi",
+    `https://ach4l.pythonanywhere.com/covifind/${id}`,
     fetcher
   );
 

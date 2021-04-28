@@ -1,18 +1,18 @@
-// import MapComponent from "../components/Map";
 import { Container } from "../components/Container";
-import { CTA } from "../components/CTA";
-import { useState } from "react";
-import dynamic from "next/dynamic";
-import { Options, SelectedButtonContext } from "../context/ButtonSelection";
 import Head from "next/head";
-
-const MapComponentNoSSR = dynamic<any>(() => import("../components/Map"), {
-  ssr: false,
-});
+import React, { useState } from "react";
+import { Button, Select } from "@chakra-ui/react";
+import useSWR from "swr";
+import NextLink from "next/link";
 
 const Index = () => {
-  const [selctedButton, setSelection] = useState(Options.Hospitals);
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const [option, setOption] = useState<string>("");
 
+  const { data: dropDownData, error: _mapError } = useSWR(
+    `https://ach4l.pythonanywhere.com/covifind/dropdown`,
+    fetcher
+  );
   return (
     <Container height="100vh">
       <Head>
@@ -43,12 +43,28 @@ const Index = () => {
           sizes="32x32"
         />
       </Head>
-      <SelectedButtonContext.Provider value={{ selctedButton, setSelection }}>
-        <Container mt={"10vh"}>
-          <MapComponentNoSSR />
-        </Container>
-        <CTA />
-      </SelectedButtonContext.Provider>
+      <Select
+        my={8}
+        py={4}
+        onChange={(event) => {
+          setOption(event.target.value);
+        }}
+        placeholder="Select city"
+      >
+        {dropDownData &&
+          dropDownData.map((item: { id: string; name: string }) => {
+            return (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            );
+          })}
+      </Select>
+      <NextLink href={`map/${option}`}>
+        <Button width="100%" my={8} py={4} variant="outline" colorScheme="blue">
+          Go
+        </Button>
+      </NextLink>
     </Container>
   );
 };

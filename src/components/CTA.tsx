@@ -14,7 +14,6 @@ export const CTA = () => {
       position="fixed"
       top="0"
       width="100%"
-      maxWidth="48rem"
       py={3}
     >
       <Button
