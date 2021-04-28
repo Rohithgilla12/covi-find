@@ -1,5 +1,9 @@
-module.exports = {
-  env: {
-    NEXT_GOOGLE_MAPS_API_KEY: process.env.NEXT_GOOGLE_MAPS_API_KEY,
+const withPWA = require("next-pwa");
+const runtimeCaching = require("next-pwa/cache");
+
+module.exports = withPWA({
+  pwa: {
+    dest: "public",
+    runtimeCaching,
   },
-};
+});

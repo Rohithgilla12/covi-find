@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import useSWR from "swr";
-// import "leaflet/dist/leaflet.css";
+import "leaflet/dist/leaflet.css";
 import { Options, useSelectedButton } from "../context/ButtonSelection";
 import { RenderMarkers } from "./RenderMarkers";
 
