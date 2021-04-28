@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  GoogleMap,
-  LoadScript,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import useSWR from "swr";
+// import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 // import { useSelectedButton } from "../context/ButtonSelection";
 
 const containerStyle = {
@@ -13,10 +10,25 @@ const containerStyle = {
   height: "80vh",
 };
 
-export const MapComponent = () => {
+const customMarker = L.icon({
+  iconUrl: "/icu-bed.png",
+  iconSize: [25, 41],
+  iconAnchor: [10, 41],
+  popupAnchor: [2, -40],
+});
+interface MapProps {
+  center: any;
+  zoom?: number;
+}
+
+export const ChangeView: React.FC<MapProps> = ({ center, zoom }) => {
+  const map = useMap();
+  map.setView(center, zoom);
+  return null;
+};
+
+const MapComponent = () => {
   const [current, setCurrent] = useState({ lat: 18.4264677, lng: 79.1339878 });
-  // const [response, setResponse] = useState({});
-  const [selectedCenter, setSelectedCenter] = useState<any | null>(null);
   var lats: Array<number> = [];
   var longs: Array<number> = [];
 
@@ -59,78 +71,56 @@ export const MapComponent = () => {
   // const { selctedButton } = useSelectedButton();
 
   useEffect(() => {
-    if ("geolocation" in navigator) {
-      // navigator.geolocation.getCurrentPosition(async function (position) {
-      // setCurrent({
-      //   lat: position.coords.latitude,
-      //   lng: position.coords.longitude,
-      // });
-      // });
-    }
-  }, []);
-
-  useEffect(() => {
     getCenterPoint();
   }, [mapData]);
 
   return (
-    <LoadScript googleMapsApiKey={process.env.NEXT_GOOGLE_MAPS_API_KEY}>
-      <GoogleMap mapContainerStyle={containerStyle} center={current} zoom={12}>
-        {/* <Marker position={current} /> */}
-        {mapData &&
-          Object.entries(mapData).map((key: any, value: any) => {
-            const position = key[1];
-            return (
-              <Marker
-                key={value}
-                position={{
-                  lat: position["Lat"],
-                  lng: position["Long"],
-                }}
-                icon="/icu-bed.png"
-                onClick={() => {
-                  setSelectedCenter({
-                    lat: position["Lat"],
-                    lng: position["Long"],
-                    id: value,
-                    ...position,
-                  });
-                }}
-              ></Marker>
-            );
-          })}
-        {selectedCenter && (
-          <InfoWindow
-            onCloseClick={() => {
-              setSelectedCenter(null);
-            }}
-            position={{
-              lat: selectedCenter.lat,
-              lng: selectedCenter.lng,
-            }}
-          >
-            <div style={{ color: "black" }}>
-              <div>{selectedCenter["Hosp_name"]}</div>
-              <div>{selectedCenter["Govt"]}</div>
-              <div>Lasted updated at {selectedCenter["Last_updated"]}</div>
-              <div>Vacant ICU Beds {selectedCenter["Vacant_ICU_beds"]}</div>
-              <div>
-                Vacant Normal beds {selectedCenter["Vacant_normal_beds"]}
-              </div>
-              <div style={{ color: "blue" }}>
-                <a href={`tel:${selectedCenter["Contact"].split(";")[0]}`}>
-                  Contact {selectedCenter["Contact"]}
-                </a>
-              </div>
-              <div style={{ color: "blue" }}>
-                <a href={createNavLink(selectedCenter.lat, selectedCenter.lng)}>
-                  Directions{" "}
-                </a>
-              </div>
-            </div>
-          </InfoWindow>
-        )}
-      </GoogleMap>
-    </LoadScript>
+    <MapContainer
+      style={containerStyle}
+      center={[current.lat, current.lng]}
+      zoom={12}
+    >
+      <ChangeView center={[current.lat, current.lng]} zoom={12} />
+      <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {mapData &&
+        Object.entries(mapData).map((key: any, value: any) => {
+          const position = key[1];
+          return (
+            <Marker
+              icon={customMarker}
+              key={value}
+              position={{
+                lat: position["Lat"],
+                lng: position["Long"],
+              }}
+            >
+              <Popup minWidth={90}>
+                <div style={{ color: "black" }}>
+                  <div>{position["Hosp_name"]}</div>
+                  <div>{position["Govt"]}</div>
+                  <div>Lasted updated at {position["Last_updated"]}</div>
+                  <div>Vacant ICU Beds {position["Vacant_ICU_beds"]}</div>
+                  <div>Vacant Normal beds {position["Vacant_normal_beds"]}</div>
+                  <div style={{ color: "blue" }}>
+                    <a href={`tel:${position["Contact"].split(";")[0]}`}>
+                      Contact {position["Contact"]}
+                    </a>
+                  </div>
+                  <div style={{ color: "blue" }}>
+                    <a href={createNavLink(position["Lat"], position["Long"])}>
+                      Directions{" "}
+                    </a>
+                  </div>
+                </div>
+              </Popup>
+            </Marker>
+          );
+        })}
+    </MapContainer>
   );
 };
+
+export default MapComponent;
