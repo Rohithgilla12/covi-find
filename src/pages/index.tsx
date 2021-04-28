@@ -60,11 +60,19 @@ const Index = () => {
             );
           })}
       </Select>
-      <NextLink href={`map/${option}`}>
-        <Button width="100%" my={8} py={4} variant="outline" colorScheme="blue">
-          Go
-        </Button>
-      </NextLink>
+      {option.length > 0 && (
+        <NextLink href={`map/${option}`}>
+          <Button
+            width="100%"
+            my={8}
+            py={4}
+            variant="outline"
+            colorScheme="blue"
+          >
+            Go
+          </Button>
+        </NextLink>
+      )}
     </Container>
   );
 };
