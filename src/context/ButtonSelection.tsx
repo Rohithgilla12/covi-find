@@ -4,6 +4,7 @@ export enum Options {
   Hospitals = "HOSPITALS",
   IcuBeds = "ICU_BEDS",
   Beds = "BEDS",
+  Venilator = "VENTILATORS",
 }
 
 export type SelectedButtonContextType = {

@@ -77,6 +77,10 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
           }
         } else if (selctedButton === Options.Hospitals) {
           localPositions.push(position);
+        } else if (selctedButton === Options.Venilator) {
+          if (position["Available_Venti"] > 0) {
+            localPositions.push(position);
+          }
         }
       });
     }

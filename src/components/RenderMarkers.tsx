@@ -44,6 +44,7 @@ export const RenderMarkers: React.FC<RenderMarkersProps> = ({ positions }) => {
                 <div>{position["Govt"]}</div>
                 <div>Vacant ICU Beds {position["Available_ICU"]}</div>
                 <div>Vacant Normal beds {position["Available_Gen"]}</div>
+                <div>Vacant Venilator beds {position["Available_Venti"]}</div>
                 {position["Contact"] && (
                   <div style={{ color: "blue" }}>
                     <a href={`tel:${position["Contact"].split(";")[0]}`}>
