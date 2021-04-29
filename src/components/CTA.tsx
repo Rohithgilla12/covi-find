@@ -27,6 +27,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
         flexGrow={3}
         mx={2}
         colorScheme="green"
+        w={"fit-content"}
         onClick={() => {
           setSelection(Options.Hospitals);
         }}
@@ -40,6 +41,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
           flexGrow={3}
           mx={2}
           colorScheme="green"
+          w={"fit-content"}
           onClick={() => {
             setSelection(Options.Beds);
           }}
@@ -54,11 +56,12 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
           flexGrow={3}
           mx={2}
           colorScheme="green"
+          w={"fit-content"}
           onClick={() => {
             setSelection(Options.IcuBeds);
           }}
         >
-          ICU Beds
+          ICU
         </Button>
       )}
       {buttonData.includes("Available_Venti") && (
@@ -68,11 +71,12 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
           flexGrow={3}
           mx={2}
           colorScheme="green"
+          w={"fit-content"}
           onClick={() => {
             setSelection(Options.Venilator);
           }}
         >
-          Venilator Beds
+          Venilators
         </Button>
       )}
     </Container>

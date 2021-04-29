@@ -6,4 +6,8 @@ module.exports = withPWA({
     dest: "public",
     runtimeCaching,
   },
+  i18n: {
+    locales: ["en-US"],
+    defaultLocale: "en-US",
+  },
 });
