@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
 import useSWR from "swr";
 import "leaflet/dist/leaflet.css";
 import { Options, useSelectedButton } from "../context/ButtonSelection";
 import { RenderMarkers } from "./RenderMarkers";
+import L, { LatLng } from "leaflet";
+
+const patientMarker = L.icon({
+  iconUrl: "/patient.png",
+  iconSize: [32, 32],
+  iconAnchor: [10, 32],
+  popupAnchor: [2, -32],
+});
 
 const containerStyle = {
   width: "100vw",
@@ -16,8 +31,27 @@ interface MapProps {
 
 export const ChangeView: React.FC<MapProps> = ({ center, zoom }) => {
   const map = useMap();
+  map.locate();
   map.setView(center, zoom);
   return null;
+};
+
+export const LocationMarker = () => {
+  const [position, setPosition] = useState<LatLng>();
+
+  useMapEvents({
+    locationfound(e) {
+      if (e) {
+        setPosition(e.latlng);
+      }
+    },
+  });
+
+  return position === undefined ? null : (
+    <Marker icon={patientMarker} position={position}>
+      <Popup>You are here</Popup>
+    </Marker>
+  );
 };
 
 interface MapComponentProps {
@@ -94,6 +128,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
       zoom={12}
     >
       <ChangeView center={[current.lat, current.lng]} zoom={12} />
+      <LocationMarker />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

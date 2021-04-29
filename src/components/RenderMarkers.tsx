@@ -8,9 +8,9 @@ interface RenderMarkersProps {
 
 const customMarker = L.icon({
   iconUrl: "/icu-bed.png",
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
+  iconSize: [32, 32],
+  iconAnchor: [10, 32],
+  popupAnchor: [2, -32],
 });
 
 const createNavLink = (lat: number, long: number) => {
