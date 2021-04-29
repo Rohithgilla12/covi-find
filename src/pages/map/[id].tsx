@@ -27,8 +27,15 @@ const HelpMap: React.FC<HelpMapProps> = ({}) => {
 
   return (
     <SelectedButtonContext.Provider value={{ selctedButton, setSelection }}>
-      <Container m={0} px={0} py={8}>
-        <Container px={0} mt={"10vh"}>
+      <Container
+        h={"100vh"}
+        w={"100vw"}
+        background="#FDFBED"
+        m={0}
+        px={0}
+        py={8}
+      >
+        <Container px={0}>
           <MapComponentNoSSR id={id} />
         </Container>
         {buttonData && <CTA buttonData={buttonData.buttons} />}
