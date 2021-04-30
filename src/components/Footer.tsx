@@ -29,7 +29,9 @@ export const Footer: React.FC<FooterProps> = ({}) => {
             colorScheme="blue"
             w={"fit-content"}
           >
-            <Text color="black">About Us</Text>
+            <Text fontSize="md" color="black">
+              About Us
+            </Text>
           </Button>
         </NextLink>
         <NextLink href="/">
@@ -41,12 +43,14 @@ export const Footer: React.FC<FooterProps> = ({}) => {
             colorScheme="blue"
             w={"fit-content"}
           >
-            <Text color="black">Home</Text>
+            <Text fontSize="md" color="black">
+              Home
+            </Text>
           </Button>
         </NextLink>
       </Flex>
 
-      <Text textAlign="center" color="black">
+      <Text fontSize="x-small" textAlign="center" color="black">
         We get the data directly from various government websites. However,
         sometimes the data might be wrong or outdated. Please contact the
         hospital before making any decisions

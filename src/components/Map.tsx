@@ -125,9 +125,10 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
     <MapContainer
       style={containerStyle}
       center={[current.lat, current.lng]}
-      zoom={12}
+      zoom={10}
+      zoomControl={false}
     >
-      <ChangeView center={[current.lat, current.lng]} zoom={12} />
+      <ChangeView center={[current.lat, current.lng]} zoom={10} />
       <LocationMarker />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

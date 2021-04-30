@@ -24,11 +24,6 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
       opacity="0.9"
       p={4}
     >
-      <Box p={2}>
-        <Text textAlign="center" color="black">
-          Click the button to see the currently available resources
-        </Text>
-      </Box>
       <Flex direction="row">
         <Button
           width="100%"
@@ -41,7 +36,9 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
             setSelection(Options.Hospitals);
           }}
         >
-          <Text color="black">Hospitals</Text>
+          <Text fontSize="md" color="black">
+            Hospitals
+          </Text>
         </Button>
         {buttonData.includes("Available_Gen") && (
           <Button
@@ -55,7 +52,9 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
               setSelection(Options.Beds);
             }}
           >
-            <Text color="black">Beds</Text>
+            <Text fontSize="md" color="black">
+              Beds
+            </Text>
           </Button>
         )}
         {buttonData.includes("Available_ICU") && (
@@ -70,7 +69,9 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
               setSelection(Options.IcuBeds);
             }}
           >
-            <Text color="black">ICU</Text>
+            <Text fontSize="md" color="black">
+              ICU
+            </Text>
           </Button>
         )}
         {buttonData.includes("Available_Venti") && (
@@ -85,10 +86,17 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
               setSelection(Options.Venilator);
             }}
           >
-            <Text color="black">Venilators</Text>
+            <Text fontSize="md" color="black">
+              Venilators
+            </Text>
           </Button>
         )}
       </Flex>
+      <Box p={2}>
+        <Text fontSize="x-small" textAlign="center" color="black">
+          Click the button to see the currently available resources
+        </Text>
+      </Box>
     </Container>
   );
 };
