@@ -26,7 +26,7 @@ export const Footer: React.FC<FooterProps> = ({}) => {
             width="100%"
             variant="solid"
             m={2}
-            colorScheme="blue"
+            background="#E5dfdf"
             w={"fit-content"}
           >
             <Text fontSize="md" color="black">
@@ -36,11 +36,11 @@ export const Footer: React.FC<FooterProps> = ({}) => {
         </NextLink>
         <NextLink href="/">
           <Button
-            leftIcon={<ChevronLeftIcon />}
+            leftIcon={<ChevronLeftIcon color="black" />}
             width="100%"
             variant="solid"
             m={2}
-            colorScheme="blue"
+            background="#E5dfdf"
             w={"fit-content"}
           >
             <Text fontSize="md" color="black">

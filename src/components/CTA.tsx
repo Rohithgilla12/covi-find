@@ -27,10 +27,10 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
       <Flex direction="row">
         <Button
           width="100%"
-          variant="outline"
+          variant="solid"
           flexGrow={3}
           mx={2}
-          colorScheme="blue"
+          background="#E5dfdf"
           w={"fit-content"}
           onClick={() => {
             setSelection(Options.Hospitals);
@@ -45,6 +45,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
             width="100%"
             variant="outline"
             flexGrow={3}
+            background="#E5dfdf"
             mx={2}
             colorScheme="blue"
             w={"fit-content"}
@@ -64,6 +65,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
             flexGrow={3}
             mx={2}
             colorScheme="blue"
+            background="#E5dfdf"
             w={"fit-content"}
             onClick={() => {
               setSelection(Options.IcuBeds);
@@ -81,6 +83,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
             flexGrow={3}
             mx={2}
             colorScheme="blue"
+            background="#E5dfdf"
             w={"fit-content"}
             onClick={() => {
               setSelection(Options.Venilator);
