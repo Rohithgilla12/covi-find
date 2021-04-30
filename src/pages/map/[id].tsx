@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useSWR from "swr";
 import { CTA } from "../../components/CTA";
+import { Footer } from "../../components/Footer";
 import { Options, SelectedButtonContext } from "../../context/ButtonSelection";
 
 const MapComponentNoSSR = dynamic<any>(() => import("../../components/Map"), {
@@ -40,6 +41,7 @@ const HelpMap: React.FC<HelpMapProps> = ({}) => {
         </Container>
         {buttonData && <CTA buttonData={buttonData.buttons} />}
       </Container>
+      <Footer />
     </SelectedButtonContext.Provider>
   );
 };

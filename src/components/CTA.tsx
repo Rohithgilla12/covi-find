@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Text } from "@chakra-ui/react";
 
 import { Options, useSelectedButton } from "../context/ButtonSelection";
 
@@ -19,7 +19,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
       top="0"
       width="100%"
       zIndex={500}
-      background="transparent"
+      bgGradient={["linear(to-b, #008EBE, #FDFBED)"]}
       py={3}
     >
       <Button
@@ -33,7 +33,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
           setSelection(Options.Hospitals);
         }}
       >
-        Hospitals
+        <Text color="black">Hospitals</Text>
       </Button>
       {buttonData.includes("Available_Gen") && (
         <Button
@@ -47,7 +47,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
             setSelection(Options.Beds);
           }}
         >
-          Beds
+          <Text color="black">Beds</Text>
         </Button>
       )}
       {buttonData.includes("Available_ICU") && (
@@ -62,7 +62,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
             setSelection(Options.IcuBeds);
           }}
         >
-          ICU
+          <Text color="black">ICU</Text>
         </Button>
       )}
       {buttonData.includes("Available_Venti") && (
@@ -77,7 +77,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
             setSelection(Options.Venilator);
           }}
         >
-          Venilators
+          <Text color="black">Venilators</Text>
         </Button>
       )}
     </Container>

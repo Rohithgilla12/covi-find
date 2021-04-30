@@ -1,5 +1,55 @@
-import { Flex, FlexProps } from '@chakra-ui/react'
+import React from "react";
+import { Container } from "./Container";
+import { Button, Flex, Text } from "@chakra-ui/react";
+import { ChevronLeftIcon } from "@chakra-ui/icons";
+import NextLink from "next/link";
 
-export const Footer = (props: FlexProps) => (
-  <Flex as="footer" py="8rem" {...props} />
-)
+interface FooterProps {}
+
+export const Footer: React.FC<FooterProps> = ({}) => {
+  return (
+    <Container
+      flexDirection="column"
+      flexWrap="nowrap"
+      overflowX="scroll"
+      position="absolute"
+      bottom="0"
+      width="100%"
+      zIndex={500}
+      bgGradient={["linear(to-t, #008EBE, #FDFBED)"]}
+      py={3}
+    >
+      <Flex direction="row">
+        <NextLink href="/about">
+          <Button
+            width="100%"
+            variant="solid"
+            m={2}
+            colorScheme="blue"
+            w={"fit-content"}
+          >
+            <Text color="black">About Us</Text>
+          </Button>
+        </NextLink>
+        <NextLink href="/">
+          <Button
+            leftIcon={<ChevronLeftIcon />}
+            width="100%"
+            variant="solid"
+            m={2}
+            colorScheme="blue"
+            w={"fit-content"}
+          >
+            <Text color="black">Home</Text>
+          </Button>
+        </NextLink>
+      </Flex>
+
+      <Text color="black">
+        We get the data directly from various government websites. However,
+        sometimes the data might be wrong or outdated. Please contact the
+        hospital before making any decisions
+      </Text>
+    </Container>
+  );
+};

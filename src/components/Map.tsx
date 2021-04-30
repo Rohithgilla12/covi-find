@@ -22,7 +22,7 @@ const patientMarker = L.icon({
 
 const containerStyle = {
   width: "100vw",
-  height: "80vh",
+  height: "100vh",
 };
 interface MapProps {
   center: any;
