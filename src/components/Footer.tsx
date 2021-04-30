@@ -16,7 +16,8 @@ export const Footer: React.FC<FooterProps> = ({}) => {
       bottom="0"
       width="100%"
       zIndex={500}
-      bgGradient={["linear(to-t, #008EBE, #FDFBED)"]}
+      background="#008EBE"
+      opacity="0.9"
       py={3}
     >
       <Flex direction="row">
@@ -45,7 +46,7 @@ export const Footer: React.FC<FooterProps> = ({}) => {
         </NextLink>
       </Flex>
 
-      <Text color="black">
+      <Text textAlign="center" color="black">
         We get the data directly from various government websites. However,
         sometimes the data might be wrong or outdated. Please contact the
         hospital before making any decisions
