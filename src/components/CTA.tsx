@@ -90,7 +90,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
             }}
           >
             <Text fontSize="md" color="black">
-              Venilators
+              Ventilators 
             </Text>
           </Button>
         )}
