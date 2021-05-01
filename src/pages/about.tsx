@@ -14,6 +14,22 @@ const About: React.FC<AboutProps> = ({}) => {
         these tough times. We hope this resource is useful for people in urgent
         needs.
       </Text>
+      <Text color="black" fontSize="md">
+        To contribute to this initiative please join our discord server{" "}
+        <NextLink href="https://discord.gg/55QYEYKj">
+          <Button color="blue" variant="link">
+            here.
+          </Button>
+        </NextLink>
+      </Text>
+      <Text color="black" fontSize="md">
+        Have coding skills? put it to (good) use
+        <NextLink href="https://github.com/Rohithgilla12/covi-find">
+          <Button color="blue" variant="link">
+            here.
+          </Button>
+        </NextLink>
+      </Text>
       <NextLink href="/">
         <Button
           leftIcon={<ChevronLeftIcon />}
