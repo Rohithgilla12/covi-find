@@ -43,6 +43,10 @@ const About: React.FC<AboutProps> = ({}) => {
           <Text color="black">Home</Text>
         </Button>
       </NextLink>
+      <Text color="black">
+        Please share this resource with people who might be in need of these
+        resources.
+      </Text>
       <ShareButtons />
     </Box>
   );
