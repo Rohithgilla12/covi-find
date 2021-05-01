@@ -3,6 +3,7 @@ import React from "react";
 import NextLink from "next/link";
 import { Button } from "@chakra-ui/react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
+import { ShareButtons } from "../components/ShareButtons";
 
 interface AboutProps {}
 
@@ -23,7 +24,7 @@ const About: React.FC<AboutProps> = ({}) => {
         </NextLink>
       </Text>
       <Text color="black" fontSize="md">
-        Have coding skills? put it to (good) use
+        Have coding skills? put it to (good) use{" "}
         <NextLink href="https://github.com/Rohithgilla12/covi-find">
           <Button color="blue" variant="link">
             here.
@@ -42,6 +43,7 @@ const About: React.FC<AboutProps> = ({}) => {
           <Text color="black">Home</Text>
         </Button>
       </NextLink>
+      <ShareButtons />
     </Box>
   );
 };
