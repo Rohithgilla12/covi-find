@@ -15,8 +15,14 @@ export default class Document extends NextDocument {
           />
           <link rel="apple-touch-icon" href="/apple-icon.png"></link>
           <meta name="theme-color" content="#317EFB" />
-          <meta name="description" content="Covi Find" />
-          <meta name="keywords" content="corona helpline" />
+          <meta
+            name="description"
+            content="Find all the Covid resources near you on a map! Data tracked from various government websites and verified NGOs. This is an effort by a group of volunteers to have all the Covid resources data on one platform with an easy to use interface."
+          />
+          <meta
+            name="keywords"
+            content="corona helpline resouces bangalore delhi "
+          />
           <title>Covi Find</title>
 
           <link rel="manifest" href="/manifest.json" />
