@@ -63,6 +63,12 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
   const [current, setCurrent] = useState({ lat: 18.4264677, lng: 79.1339878 });
   var lats: Array<number> = [];
   var longs: Array<number> = [];
+
+  const { data: zoomLevel, error: _buttonsError } = useSWR(
+    `https://ach4l.pythonanywhere.com/covifind/zoom/${id}`,
+    fetcher
+  );
+
   const [positions, setPositions] = useState();
 
   const { selctedButton } = useSelectedButton();
@@ -71,6 +77,16 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
     `https://ach4l.pythonanywhere.com/covifind/${id}`,
     fetcher
   );
+
+  console.log(zoomLevel);
+
+  const getZoomLevel = (place: string) => {
+    if (place === "state") {
+      return 7;
+    } else {
+      return 10;
+    }
+  };
 
   const getCenterPoint = () => {
     lats = [];
@@ -131,7 +147,10 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
       zoom={8}
       zoomControl={false}
     >
-      <ChangeView center={[current.lat, current.lng]} zoom={8} />
+      <ChangeView
+        center={[current.lat, current.lng]}
+        zoom={getZoomLevel(zoomLevel)}
+      />
       <LocationMarker />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
