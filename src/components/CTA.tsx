@@ -1,16 +1,25 @@
 import { Button, Text, Box, Flex } from "@chakra-ui/react";
 import React from "react";
+import useSWR from "swr";
 
 import { Options, useSelectedButton } from "../context/ButtonSelection";
+import { fetcher } from "../utils/fetcher";
 
 import { Container } from "./Container";
 
 interface CTAProps {
   buttonData: Array<string>;
+  placeId: string;
 }
 
-export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
+export const CTA: React.FC<CTAProps> = ({ buttonData, placeId }) => {
   const { setSelection } = useSelectedButton();
+
+  const { data: buttonCount, error: _buttonsError } = useSWR(
+    `https://ach4l.pythonanywhere.com/covifind/agg/${placeId}`,
+    fetcher
+  );
+
   return (
     <Container
       flexDirection="column"
@@ -27,9 +36,9 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
       <Flex direction="row">
         <Button
           width="100%"
-          variant="solid"
-          flexGrow={3}
-          mx={2}
+          variant="outline"
+          flexGrow={1}
+          mx={1}
           background="#E5dfdf"
           w={"fit-content"}
           onClick={() => {
@@ -44,10 +53,11 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
           <Button
             width="100%"
             variant="outline"
-            flexGrow={3}
+            flexGrow={1}
+            mx={1}
             background="#E5dfdf"
-            mx={2}
             colorScheme="blue"
+            flexDir="column"
             w={"fit-content"}
             onClick={() => {
               setSelection(Options.Beds);
@@ -56,16 +66,20 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
             <Text fontSize="md" color="black">
               Beds
             </Text>
+            <Text fontSize="x-small" color="black">
+              {buttonCount && buttonCount["Available_Gen"]}
+            </Text>
           </Button>
         )}
         {buttonData.includes("Available_ICU") && (
           <Button
             width="100%"
             variant="outline"
-            flexGrow={3}
-            mx={2}
+            flexGrow={1}
             colorScheme="blue"
+            mx={1}
             background="#E5dfdf"
+            flexDir="column"
             w={"fit-content"}
             onClick={() => {
               setSelection(Options.IcuBeds);
@@ -73,6 +87,9 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
           >
             <Text fontSize="md" color="black">
               ICU
+              <Text fontSize="x-small" color="black">
+                {buttonCount && buttonCount["Available_ICU"]}
+              </Text>
             </Text>
           </Button>
         )}
@@ -80,8 +97,8 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
           <Button
             width="100%"
             variant="outline"
-            flexGrow={3}
-            mx={2}
+            flexGrow={1}
+            mx={1}
             colorScheme="blue"
             background="#E5dfdf"
             w={"fit-content"}
@@ -90,7 +107,31 @@ export const CTA: React.FC<CTAProps> = ({ buttonData }) => {
             }}
           >
             <Text fontSize="md" color="black">
-              Ventilators 
+              Ventilators
+              <Text fontSize="x-small" color="black">
+                {buttonCount && buttonCount["Available_Venti"]}
+              </Text>
+            </Text>
+          </Button>
+        )}
+        {buttonData.includes("Available_Oxy") && (
+          <Button
+            width="100%"
+            variant="outline"
+            flexGrow={1}
+            mx={1}
+            colorScheme="blue"
+            background="#E5dfdf"
+            w={"fit-content"}
+            onClick={() => {
+              setSelection(Options.Oxygen);
+            }}
+          >
+            <Text fontSize="md" color="black">
+              Oxygen
+              <Text fontSize="x-small" color="black">
+                {buttonCount && buttonCount["Available_Oxy"]}
+              </Text>
             </Text>
           </Button>
         )}

@@ -12,6 +12,7 @@ import "leaflet/dist/leaflet.css";
 import { Options, useSelectedButton } from "../context/ButtonSelection";
 import { RenderMarkers } from "./RenderMarkers";
 import L, { LatLng } from "leaflet";
+import { fetcher } from "../utils/fetcher";
 
 const patientMarker = L.icon({
   iconUrl: "/patient.png",
@@ -66,8 +67,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
 
   const { selctedButton } = useSelectedButton();
 
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
   const { data: mapData, error: _mapError } = useSWR(
     `https://ach4l.pythonanywhere.com/covifind/${id}`,
     fetcher
@@ -113,6 +112,10 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
           localPositions.push(position);
         } else if (selctedButton === Options.Venilator) {
           if (position["Available_Venti"] > 0) {
+            localPositions.push(position);
+          }
+        } else if (selctedButton === Options.Oxygen) {
+          if (position["Available_Oxy"] > 0) {
             localPositions.push(position);
           }
         }

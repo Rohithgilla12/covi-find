@@ -6,6 +6,7 @@ import useSWR from "swr";
 import { CTA } from "../../components/CTA";
 import { Footer } from "../../components/Footer";
 import { Options, SelectedButtonContext } from "../../context/ButtonSelection";
+import { fetcher } from "../../utils/fetcher";
 
 const MapComponentNoSSR = dynamic<any>(() => import("../../components/Map"), {
   ssr: false,
@@ -18,8 +19,6 @@ const HelpMap: React.FC<HelpMapProps> = ({}) => {
   const { id } = router.query;
 
   const [selctedButton, setSelection] = useState(Options.Hospitals);
-
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
   const { data: buttonData, error: _buttonsError } = useSWR(
     `https://ach4l.pythonanywhere.com/covifind/buttons/${id}`,
@@ -39,7 +38,9 @@ const HelpMap: React.FC<HelpMapProps> = ({}) => {
         <Container px={0}>
           <MapComponentNoSSR id={id} />
         </Container>
-        {buttonData && <CTA buttonData={buttonData.buttons} />}
+        {buttonData && (
+          <CTA placeId={id as any} buttonData={buttonData.buttons} />
+        )}
       </Container>
       <Footer />
     </SelectedButtonContext.Provider>
