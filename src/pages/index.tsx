@@ -6,6 +6,7 @@ import NextLink from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import axios from "axios";
+import VercelLogo from "../components/VercelLogo";
 
 const Index = () => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -98,6 +99,7 @@ const Index = () => {
           </Button>
         </Box>
       </Box>
+      <VercelLogo />
     </Container>
   );
 };
