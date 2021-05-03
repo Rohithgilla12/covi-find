@@ -78,8 +78,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
     fetcher
   );
 
-  console.log(zoomLevel);
-
   const getZoomLevel = (place: string) => {
     if (place === "state") {
       return 7;
