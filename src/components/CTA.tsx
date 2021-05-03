@@ -6,6 +6,7 @@ import { Options, useSelectedButton } from "../context/ButtonSelection";
 import { fetcher } from "../utils/fetcher";
 
 import { Container } from "./Container";
+import FilterButton from "./FilterButton";
 
 interface CTAProps {
   buttonData: Array<string>;
@@ -36,7 +37,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData, placeId }) => {
       <Flex direction="row">
         <Button
           width="100%"
-          variant="outline"
+          variant="solid"
           flexGrow={1}
           mx={1}
           background="#E5dfdf"
@@ -49,91 +50,41 @@ export const CTA: React.FC<CTAProps> = ({ buttonData, placeId }) => {
             Hospitals
           </Text>
         </Button>
-        {buttonData.includes("Available_Gen") && (
-          <Button
-            width="100%"
-            variant="outline"
-            flexGrow={1}
-            mx={1}
-            background="#E5dfdf"
-            colorScheme="blue"
-            flexDir="column"
-            w={"fit-content"}
+        {buttonData.includes("Available_Gen") && buttonCount && (
+          <FilterButton
             onClick={() => {
               setSelection(Options.Beds);
             }}
-          >
-            <Text fontSize="md" color="black">
-              Beds
-            </Text>
-            <Text fontSize="x-small" color="black">
-              {buttonCount && buttonCount["Available_Gen"]}
-            </Text>
-          </Button>
+            count={buttonCount["Available_Gen"]}
+            name="Beds"
+          />
         )}
-        {buttonData.includes("Available_ICU") && (
-          <Button
-            width="100%"
-            variant="outline"
-            flexGrow={1}
-            colorScheme="blue"
-            mx={1}
-            background="#E5dfdf"
-            flexDir="column"
-            w={"fit-content"}
+        {buttonData.includes("Available_ICU") && buttonCount && (
+          <FilterButton
             onClick={() => {
               setSelection(Options.IcuBeds);
             }}
-          >
-            <Text fontSize="md" color="black">
-              ICU
-              <Text fontSize="x-small" color="black">
-                {buttonCount && buttonCount["Available_ICU"]}
-              </Text>
-            </Text>
-          </Button>
+            count={buttonCount["Available_ICU"]}
+            name="ICU"
+          />
         )}
-        {buttonData.includes("Available_Venti") && (
-          <Button
-            width="100%"
-            variant="outline"
-            flexGrow={1}
-            mx={1}
-            colorScheme="blue"
-            background="#E5dfdf"
-            w={"fit-content"}
+        {buttonData.includes("Available_Venti") && buttonCount && (
+          <FilterButton
             onClick={() => {
               setSelection(Options.Venilator);
             }}
-          >
-            <Text fontSize="md" color="black">
-              Ventilators
-              <Text fontSize="x-small" color="black">
-                {buttonCount && buttonCount["Available_Venti"]}
-              </Text>
-            </Text>
-          </Button>
+            count={buttonCount["Available_Venti"]}
+            name="Ventilators"
+          />
         )}
-        {buttonData.includes("Available_Oxy") && (
-          <Button
-            width="100%"
-            variant="outline"
-            flexGrow={1}
-            mx={1}
-            colorScheme="blue"
-            background="#E5dfdf"
-            w={"fit-content"}
+        {buttonData.includes("Available_Oxy") && buttonCount && (
+          <FilterButton
             onClick={() => {
               setSelection(Options.Oxygen);
             }}
-          >
-            <Text fontSize="md" color="black">
-              Oxygen
-              <Text fontSize="x-small" color="black">
-                {buttonCount && buttonCount["Available_Oxy"]}
-              </Text>
-            </Text>
-          </Button>
+            count={buttonCount["Available_Oxy"]}
+            name="Oxygen"
+          />
         )}
       </Flex>
       <Box p={2}>
