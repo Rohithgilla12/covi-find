@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import useSWR from "swr";
 import { CTA } from "../../components/CTA";
 import { Footer } from "../../components/Footer";
+import VercelLogo from "../../components/VercelLogo";
 import { Options, SelectedButtonContext } from "../../context/ButtonSelection";
 import { fetcher } from "../../utils/fetcher";
 
@@ -43,6 +44,7 @@ const HelpMap: React.FC<HelpMapProps> = ({}) => {
         )}
       </Container>
       <Footer />
+      <VercelLogo />
     </SelectedButtonContext.Provider>
   );
 };

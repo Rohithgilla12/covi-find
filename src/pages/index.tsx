@@ -4,9 +4,14 @@ import { Box, Button, Select, Text } from "@chakra-ui/react";
 import useSWR from "swr";
 import NextLink from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import axios from "axios";
+import VercelLogo from "../components/VercelLogo";
 
 const Index = () => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const router = useRouter();
+
   const [option, setOption] = useState<string>("");
 
   const { data: dropDownData, error: _mapError } = useSWR(
@@ -60,7 +65,41 @@ const Index = () => {
             </Button>
           </NextLink>
         )}
+        <Text color="black" fontSize="lg">
+          OR
+        </Text>
+        <Box m={2} p={2}>
+          <Button
+            onClick={() => {
+              if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(async function (
+                  position
+                ) {
+                  const res = await axios.post(
+                    "https://ach4l.pythonanywhere.com/covifind/findcity",
+                    {
+                      lat: position.coords.latitude,
+                      long: position.coords.longitude,
+                    }
+                  );
+                  if (res.data.isFound === "Y") {
+                    router.push(`/map/${res.data.location}`);
+                  } else {
+                  }
+                });
+              }
+            }}
+            width="100%"
+            my={2}
+            py={2}
+            variant="solid"
+            colorScheme="blue"
+          >
+            Find resources near me
+          </Button>
+        </Box>
       </Box>
+      <VercelLogo />
     </Container>
   );
 };

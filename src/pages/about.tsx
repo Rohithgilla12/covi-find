@@ -4,6 +4,7 @@ import NextLink from "next/link";
 import { Button } from "@chakra-ui/react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { ShareButtons } from "../components/ShareButtons";
+import VercelLogo from "../components/VercelLogo";
 
 interface AboutProps {}
 
@@ -48,6 +49,7 @@ const About: React.FC<AboutProps> = ({}) => {
         resources.
       </Text>
       <ShareButtons />
+      <VercelLogo />
     </Box>
   );
 };
