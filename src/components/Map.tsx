@@ -27,13 +27,24 @@ const containerStyle = {
 };
 interface MapProps {
   center: any;
-  zoom?: number;
+  zoom: number;
+  centerUpdated: Boolean;
+  setCenterUpdated: any;
 }
 
-export const ChangeView: React.FC<MapProps> = ({ center, zoom }) => {
+export const ChangeView: React.FC<MapProps> = ({
+  center,
+  zoom,
+  centerUpdated,
+  setCenterUpdated,
+}) => {
   const map = useMap();
   map.locate();
-  map.setView(center, zoom);
+  if (!centerUpdated) {
+    map.setView(center, zoom);
+    setCenterUpdated(true);
+  }
+
   return null;
 };
 
@@ -61,6 +72,7 @@ interface MapComponentProps {
 
 const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
   const [current, setCurrent] = useState({ lat: 18.4264677, lng: 79.1339878 });
+  const [centerUpdated, setCenterUpdated] = useState<Boolean>(false);
   var lats: Array<number> = [];
   var longs: Array<number> = [];
 
@@ -146,6 +158,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
       zoomControl={false}
     >
       <ChangeView
+        centerUpdated={centerUpdated}
+        setCenterUpdated={setCenterUpdated}
         center={[current.lat, current.lng]}
         zoom={getZoomLevel(zoomLevel)}
       />
