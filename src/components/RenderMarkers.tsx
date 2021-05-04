@@ -52,7 +52,9 @@ export const RenderMarkers: React.FC<RenderMarkersProps> = ({ positions }) => {
                   <div></div>
                 )}
                 {position["Available_Venti"] !== undefined ? (
-                  <div>Vacant Venilator beds {position["Available_Venti"]}</div>
+                  <div>
+                    Vacant Ventilator beds {position["Available_Venti"]}
+                  </div>
                 ) : (
                   <div></div>
                 )}
