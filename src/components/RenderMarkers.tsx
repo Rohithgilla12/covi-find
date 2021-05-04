@@ -41,10 +41,26 @@ export const RenderMarkers: React.FC<RenderMarkersProps> = ({ positions }) => {
             <Popup minWidth={90}>
               <div style={{ color: "black" }}>
                 <div>{position["Hosp_name"]}</div>
-                <div>{position["Govt"]}</div>
-                <div>Vacant ICU Beds {position["Available_ICU"]}</div>
-                <div>Vacant Normal beds {position["Available_Gen"]}</div>
-                <div>Vacant Venilator beds {position["Available_Venti"]}</div>
+                {position["Available_ICU"] !== undefined ? (
+                  <div>Vacant ICU Beds {position["Available_ICU"]}</div>
+                ) : (
+                  <div></div>
+                )}
+                {position["Available_Gen"] !== undefined ? (
+                  <div>Vacant Normal beds {position["Available_Gen"]}</div>
+                ) : (
+                  <div></div>
+                )}
+                {position["Available_Venti"] !== undefined ? (
+                  <div>Vacant Venilator beds {position["Available_Venti"]}</div>
+                ) : (
+                  <div></div>
+                )}
+                {position["Available_Oxy"] !== undefined ? (
+                  <div>Vacant Oxygen beds {position["Available_Oxy"]}</div>
+                ) : (
+                  <div></div>
+                )}
                 {position["Contact"] && (
                   <div style={{ color: "blue" }}>
                     <a href={`tel:${position["Contact"].split(";")[0]}`}>
