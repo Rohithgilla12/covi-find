@@ -13,6 +13,7 @@ import { Options, useSelectedButton } from "../context/ButtonSelection";
 import { RenderMarkers } from "./RenderMarkers";
 import L, { LatLng } from "leaflet";
 import { fetcher } from "../utils/fetcher";
+import { Center, Text } from "@chakra-ui/react";
 
 const patientMarker = L.icon({
   iconUrl: "/patient.png",
@@ -39,12 +40,10 @@ export const ChangeView: React.FC<MapProps> = ({
   setCenterUpdated,
 }) => {
   const map = useMap();
-  map.locate();
   if (!centerUpdated) {
-    map.setView(center, zoom);
+    map.flyTo(center, zoom);
     setCenterUpdated(true);
   }
-
   return null;
 };
 
@@ -71,7 +70,7 @@ interface MapComponentProps {
 }
 
 const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
-  const [current, setCurrent] = useState({ lat: 18.4264677, lng: 79.1339878 });
+  const [current, setCurrent] = useState({ lat: 0, lng: 0 });
   const [centerUpdated, setCenterUpdated] = useState<Boolean>(false);
   var lats: Array<number> = [];
   var longs: Array<number> = [];
@@ -150,6 +149,15 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
     setPositions(localPositions);
   }, [selctedButton]);
 
+  if (current.lat === 0) {
+    return (
+      <Center>
+        <Text mt={"40vh"} color="black" size="md">
+          Loading the map please wait.
+        </Text>
+      </Center>
+    );
+  }
   return (
     <MapContainer
       style={containerStyle}
