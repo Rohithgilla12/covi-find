@@ -18,7 +18,7 @@ const About: React.FC<AboutProps> = ({}) => {
       </Text>
       <Text color="black" fontSize="md">
         To contribute to this initiative please join our discord server{" "}
-        <NextLink href="https://discord.gg/55QYEYKj">
+        <NextLink href="https://discord.gg/QWPxEzwfHa">
           <Button color="blue" variant="link">
             here.
           </Button>
