@@ -12,7 +12,7 @@ const LeadHome: React.FC<LeadHomeProps> = ({}) => {
   const { id } = router.query;
 
   const { data: leadsData, error: _Leadserror } = useSWR(
-    `http://ach4l.pythonanywhere.com/covifind/leads/${id}`,
+    `https://ach4l.pythonanywhere.com/covifind/leads/${id}`,
     fetcher
   );
 
