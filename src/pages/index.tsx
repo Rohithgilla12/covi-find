@@ -7,6 +7,7 @@ import Image from "next/image";
 import { SimpleGrid } from "@chakra-ui/layout";
 import { Box, Text } from "@chakra-ui/react";
 import ImageTile from "../components/home/ImageTile";
+import { MedicalCare } from "../components/home/MedicalCare";
 
 const Index = () => {
   const [option, setOption] = useState<HomePageOptions>(HomePageOptions.Home);
@@ -45,6 +46,7 @@ const Index = () => {
           </SimpleGrid>
         )}
         {option === HomePageOptions.Hospitals && <HospitalCare />}
+        {option === HomePageOptions.MedicalResouces && <MedicalCare />}
       </Box>
       <VercelLogo />
     </Container>
