@@ -33,6 +33,10 @@ export const DataTable: React.FC<DataTableProps> = ({ leadData }) => {
         accessor: "Name",
       },
       {
+        Header: "District",
+        accessor: "District",
+      },
+      {
         Header: "Contact",
         accessor: "Contact",
         Cell: ({ cell: { value } }: any) => (
@@ -62,7 +66,6 @@ export const DataTable: React.FC<DataTableProps> = ({ leadData }) => {
   const handleFilterChange = (e: any) => {
     const value = e.target.value || undefined;
     setGlobalFilter(value);
-    // setFilter("Name", value);
     setFilterInput(value);
   };
 
