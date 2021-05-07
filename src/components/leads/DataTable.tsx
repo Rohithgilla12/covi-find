@@ -1,7 +1,19 @@
-import React from "react";
-import { Table, Thead, Tbody, Tr, Th, Td, chakra, Box } from "@chakra-ui/react";
+import React, { useState } from "react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  chakra,
+  Box,
+  Input,
+} from "@chakra-ui/react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, useGlobalFilter } from "react-table";
+import NextLink from "next/link";
+import TimeAgo from "react-timeago";
 
 interface DataTableProps {
   leadData: any;
@@ -23,14 +35,20 @@ export const DataTable: React.FC<DataTableProps> = ({ leadData }) => {
       {
         Header: "Contact",
         accessor: "Contact",
+        Cell: ({ cell: { value } }: any) => (
+          <NextLink href={`tel:${value}`}>{value}</NextLink>
+        ),
       },
       {
         Header: "Last Verified",
-        accessor: "Last_Verified",
+        accessor: "Last_Verified_DT",
+        Cell: ({ cell: { value } }: any) => <TimeAgo date={value} />,
       },
     ],
     []
   );
+
+  const [filterInput, setFilterInput] = useState("");
 
   const {
     getTableProps,
@@ -38,11 +56,24 @@ export const DataTable: React.FC<DataTableProps> = ({ leadData }) => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data }, useSortBy);
+    setGlobalFilter,
+  } = useTable({ columns, data }, useGlobalFilter, useSortBy);
+
+  const handleFilterChange = (e: any) => {
+    const value = e.target.value || undefined;
+    setGlobalFilter(value);
+    // setFilter("Name", value);
+    setFilterInput(value);
+  };
 
   return (
-    <Box w="100vw">
-      <Table {...getTableProps()}>
+    <Box background={"#FDFBED"} overflowX="scroll" w={"full"}>
+      <Input
+        value={filterInput}
+        onChange={handleFilterChange}
+        placeholder={"Search"}
+      />
+      <Table size="sm" {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
