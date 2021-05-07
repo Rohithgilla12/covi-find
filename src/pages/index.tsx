@@ -1,23 +1,17 @@
 import { Container } from "../components/Container";
 import React, { useState } from "react";
-import { Box, Button, Select, Text } from "@chakra-ui/react";
-import useSWR from "swr";
-import NextLink from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import axios from "axios";
 import VercelLogo from "../components/VercelLogo";
+import { HospitalCare } from "../components/home/HospitalCare";
+import HomePageOptions from "../types/HomePageOptions";
+import Image from "next/image";
+import { SimpleGrid } from "@chakra-ui/layout";
+import { Box, Text } from "@chakra-ui/react";
+import ImageTile from "../components/home/ImageTile";
+import { MedicalCare } from "../components/home/MedicalCare";
 
 const Index = () => {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const router = useRouter();
+  const [option, setOption] = useState<HomePageOptions>(HomePageOptions.Home);
 
-  const [option, setOption] = useState<string>("");
-
-  const { data: dropDownData, error: _mapError } = useSWR(
-    `https://ach4l.pythonanywhere.com/covifind/dropdown`,
-    fetcher
-  );
   return (
     <Container
       background={"#FDFBED"}
@@ -25,7 +19,7 @@ const Index = () => {
       justifyContent="center"
       height="100vh"
     >
-      <Box align="center">
+      <Box align="center" w={"100%"}>
         <Image src="/covi-find.png" alt="Logo" height={200} width={150} />
         <Text color="#008EBE" fontSize="4xl">
           CoviFind
@@ -33,71 +27,26 @@ const Index = () => {
         <Text color="#008EBE" fontSize="md">
           Covid Resources Near You
         </Text>
-        <Select
-          my={2}
-          py={2}
-          background={"gray.100"}
-          color="black"
-          onChange={(event) => {
-            setOption(event.target.value);
-          }}
-          placeholder="Select city"
-        >
-          {dropDownData &&
-            dropDownData.map((item: { id: string; name: string }) => {
-              return (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              );
-            })}
-        </Select>
-        {option.length > 0 && (
-          <NextLink href={`map/${option}`}>
-            <Button
-              width="100%"
-              my={2}
-              py={2}
-              variant="solid"
-              colorScheme="blue"
-            >
-              Go
-            </Button>
-          </NextLink>
+        {option === HomePageOptions.Home && (
+          <SimpleGrid p={4} columns={2} spacing={8}>
+            <ImageTile
+              imagePath="/images/medical.png"
+              onClick={() => {
+                setOption(HomePageOptions.MedicalResouces);
+              }}
+              tileTitle="COVID Leads"
+            />
+            <ImageTile
+              imagePath="/images/hospital.png"
+              onClick={() => {
+                setOption(HomePageOptions.Hospitals);
+              }}
+              tileTitle="Hospital Care"
+            />
+          </SimpleGrid>
         )}
-        <Text color="black" fontSize="lg">
-          OR
-        </Text>
-        <Box m={2} p={2}>
-          <Button
-            onClick={() => {
-              if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(async function (
-                  position
-                ) {
-                  const res = await axios.post(
-                    "https://ach4l.pythonanywhere.com/covifind/findcity",
-                    {
-                      lat: position.coords.latitude,
-                      long: position.coords.longitude,
-                    }
-                  );
-                  if (res.data.isFound === "Y") {
-                    router.push(`/map/${res.data.location}`);
-                  } else {
-                  }
-                });
-              }
-            }}
-            width="100%"
-            my={2}
-            py={2}
-            variant="solid"
-            colorScheme="blue"
-          >
-            Find resources near me
-          </Button>
-        </Box>
+        {option === HomePageOptions.Hospitals && <HospitalCare />}
+        {option === HomePageOptions.MedicalResouces && <MedicalCare />}
       </Box>
       <VercelLogo />
     </Container>
