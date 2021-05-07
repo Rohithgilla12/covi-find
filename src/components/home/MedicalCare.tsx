@@ -23,7 +23,7 @@ export const MedicalCare: React.FC<MedicalCareProps> = ({}) => {
         onChange={(event) => {
           setOption(event.target.value);
         }}
-        placeholder="Select city"
+        placeholder="Select State"
       >
         {dropDownData &&
           dropDownData.map((item: { id: string; name: string }) => {

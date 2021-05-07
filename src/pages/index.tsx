@@ -34,7 +34,7 @@ const Index = () => {
               onClick={() => {
                 setOption(HomePageOptions.MedicalResouces);
               }}
-              tileTitle="Other medical resources"
+              tileTitle="COVID Leads"
             />
             <ImageTile
               imagePath="/images/hospital.png"
