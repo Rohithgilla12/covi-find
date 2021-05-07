@@ -29,6 +29,12 @@ export const DataTable: React.FC<DataTableProps> = ({ leadData }) => {
         accessor: "Resource_Type",
       },
       {
+        Header: "Available",
+        accessor: "Available",
+        Cell: ({ cell: { value } }: any) =>
+          value === "Available" ? "✅" : "❌",
+      },
+      {
         Header: "Name",
         accessor: "Name",
       },
