@@ -26,10 +26,7 @@ const getMarker = (
 
   if (selctedButton === Options.Oxygen) {
     count = position["Available_Oxy"];
-  } else if (
-    selctedButton === Options.Beds ||
-    selctedButton === Options.Hospitals
-  ) {
+  } else if (selctedButton === Options.Beds) {
     count = position["Available_Gen"];
   } else if (selctedButton === Options.Venilator) {
     count = position["Available_Venti"];
