@@ -1,7 +1,6 @@
 import { createContext, useContext } from "react";
 
 export enum Options {
-  Hospitals = "HOSPITALS",
   IcuBeds = "ICU_BEDS",
   Beds = "BEDS",
   Venilator = "VENTILATORS",
@@ -14,7 +13,7 @@ export type SelectedButtonContextType = {
 };
 
 export const SelectedButtonContext = createContext<SelectedButtonContextType>({
-  selctedButton: Options.Hospitals,
+  selctedButton: Options.Beds,
   setSelection: (_option) => console.warn("no theme provider"),
 });
 

@@ -1,4 +1,4 @@
-import { Button, Text, Box, Flex } from "@chakra-ui/react";
+import { Text, Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import useSWR from "swr";
 
@@ -35,21 +35,6 @@ export const CTA: React.FC<CTAProps> = ({ buttonData, placeId }) => {
       p={4}
     >
       <Flex direction="row">
-        <Button
-          width="100%"
-          variant="solid"
-          flexGrow={1}
-          mx={1}
-          background="#E5dfdf"
-          w={"fit-content"}
-          onClick={() => {
-            setSelection(Options.Hospitals);
-          }}
-        >
-          <Text fontSize="md" color="black">
-            Hospitals
-          </Text>
-        </Button>
         {buttonData.includes("Available_Gen") && buttonCount && (
           <FilterButton
             onClick={() => {

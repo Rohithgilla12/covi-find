@@ -19,7 +19,7 @@ const HelpMap: React.FC<HelpMapProps> = ({}) => {
   const router = useRouter();
   const { id } = router.query;
 
-  const [selctedButton, setSelection] = useState(Options.Hospitals);
+  const [selctedButton, setSelection] = useState(Options.Beds);
 
   const { data: buttonData, error: _buttonsError } = useSWR(
     `https://ach4l.pythonanywhere.com/covifind/buttons/${id}`,

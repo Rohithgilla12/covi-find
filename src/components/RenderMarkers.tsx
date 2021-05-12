@@ -1,17 +1,11 @@
 import React from "react";
 import { Marker, Popup } from "react-leaflet";
 import L from "leaflet";
+import { Options, useSelectedButton } from "../context/ButtonSelection";
 
 interface RenderMarkersProps {
   positions: any;
 }
-
-const customMarker = L.icon({
-  iconUrl: "/icu-bed.png",
-  iconSize: [32, 32],
-  iconAnchor: [10, 32],
-  popupAnchor: [2, -32],
-});
 
 const createNavLink = (lat: number, long: number) => {
   if (
@@ -24,6 +18,41 @@ const createNavLink = (lat: number, long: number) => {
     return `https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=${lat},${long}`;
 };
 
+const getMarker = (
+  position: any
+): L.Icon<L.IconOptions> | L.DivIcon | undefined => {
+  const { selctedButton } = useSelectedButton();
+  var count: number = -1;
+
+  if (selctedButton === Options.Oxygen) {
+    count = position["Available_Oxy"];
+  } else if (selctedButton === Options.Beds) {
+    count = position["Available_Gen"];
+  } else if (selctedButton === Options.Venilator) {
+    count = position["Available_Venti"];
+  } else if (selctedButton === Options.IcuBeds) {
+    count = position["Available_ICU"];
+  }
+
+  var icon: string = "/icu-bed.png";
+  if (count <= 2 && count > 0) {
+    icon = "/markers/red.png";
+  } else if (count > 2 && count <= 6) {
+    icon = "/markers/orange.png";
+  } else if (count >= 7 && count <= 10) {
+    icon = "/markers/yellow.png";
+  } else if (count > 10) {
+    icon = "/markers/green.png";
+  }
+
+  return L.icon({
+    iconUrl: icon,
+    iconSize: [16, 16],
+    iconAnchor: [10, 16],
+    popupAnchor: [1, -16],
+  });
+};
+
 export const RenderMarkers: React.FC<RenderMarkersProps> = ({ positions }) => {
   return (
     <>
@@ -31,7 +60,7 @@ export const RenderMarkers: React.FC<RenderMarkersProps> = ({ positions }) => {
         const position = key[1];
         return (
           <Marker
-            icon={customMarker}
+            icon={getMarker(position)}
             key={value}
             position={{
               lat: position["lat"],
