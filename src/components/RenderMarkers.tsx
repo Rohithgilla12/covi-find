@@ -35,11 +35,9 @@ const getMarker = (
   }
 
   var icon: string = "/icu-bed.png";
-  if (count <= 2 && count > 0) {
-    icon = "/markers/red.png";
-  } else if (count > 2 && count <= 6) {
+  if (count <= 3 && count >= 0) {
     icon = "/markers/orange.png";
-  } else if (count >= 7 && count <= 10) {
+  } else if (count > 3 && count <= 10) {
     icon = "/markers/yellow.png";
   } else if (count > 10) {
     icon = "/markers/green.png";
