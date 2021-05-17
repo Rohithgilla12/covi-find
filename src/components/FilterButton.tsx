@@ -22,6 +22,9 @@ const FilterButton: React.FC<FilterButtonProps> = ({
       flexDir="column"
       w={"fit-content"}
       onClick={onClick}
+      _focus={{
+        background: "#D2E2C7",
+      }}
     >
       <Text fontSize="md" color="black">
         {name}
