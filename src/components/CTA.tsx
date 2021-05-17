@@ -42,6 +42,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData, placeId }) => {
             }}
             count={buttonCount["Available_Gen"]}
             name="Beds"
+            option={Options.Beds}
           />
         )}
         {buttonData.includes("Available_ICU") && buttonCount && (
@@ -51,6 +52,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData, placeId }) => {
             }}
             count={buttonCount["Available_ICU"]}
             name="ICU"
+            option={Options.IcuBeds}
           />
         )}
         {buttonData.includes("Available_Venti") && buttonCount && (
@@ -60,6 +62,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData, placeId }) => {
             }}
             count={buttonCount["Available_Venti"]}
             name="Ventilators"
+            option={Options.Venilator}
           />
         )}
         {buttonData.includes("Available_Oxy") && buttonCount && (
@@ -69,6 +72,7 @@ export const CTA: React.FC<CTAProps> = ({ buttonData, placeId }) => {
             }}
             count={buttonCount["Available_Oxy"]}
             name="Oxygen"
+            option={Options.Oxygen}
           />
         )}
       </Flex>
