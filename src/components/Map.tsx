@@ -13,7 +13,8 @@ import { Options, useSelectedButton } from "../context/ButtonSelection";
 import { RenderMarkers } from "./RenderMarkers";
 import L, { LatLng } from "leaflet";
 import { fetcher } from "../utils/fetcher";
-import { Center, Text } from "@chakra-ui/react";
+import { Box, Center, Text } from "@chakra-ui/react";
+import Image from "next/image";
 
 const patientMarker = L.icon({
   iconUrl: "/patient.png",
@@ -26,29 +27,39 @@ const containerStyle = {
   width: "100vw",
   height: "80vh",
 };
-interface MapProps {
+interface ChangeViewProps {
   center: any;
+  locateMe: Boolean;
   zoom: number;
   centerUpdated: Boolean;
   setCenterUpdated: any;
+  setLocateMe: any;
 }
 
-export const ChangeView: React.FC<MapProps> = ({
+export const ChangeView: React.FC<ChangeViewProps> = ({
   center,
   zoom,
   centerUpdated,
   setCenterUpdated,
+  locateMe,
+  setLocateMe,
 }) => {
-  const map = useMap();
-  if (!centerUpdated) {
-    map.flyTo(center, zoom);
-    setCenterUpdated(true);
-  }
-  return null;
-};
-
-export const LocationMarker = () => {
   const [position, setPosition] = useState<LatLng>();
+  const map = useMap();
+
+  if (locateMe) {
+    map.locate();
+    navigator.geolocation.getCurrentPosition(async function (position) {
+      map.flyTo(
+        {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        },
+        zoom
+      );
+    });
+    setLocateMe(false);
+  }
 
   useMapEvents({
     locationfound(e) {
@@ -57,7 +68,10 @@ export const LocationMarker = () => {
       }
     },
   });
-
+  if (!centerUpdated) {
+    map.flyTo(center, zoom);
+    setCenterUpdated(true);
+  }
   return position === undefined ? null : (
     <Marker icon={patientMarker} position={position}>
       <Popup>You are here</Popup>
@@ -72,6 +86,8 @@ interface MapComponentProps {
 const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
   const [current, setCurrent] = useState({ lat: 0, lng: 0 });
   const [centerUpdated, setCenterUpdated] = useState<Boolean>(false);
+  const [locateMe, setLocateMe] = useState<Boolean>(false);
+
   var lats: Array<number> = [];
   var longs: Array<number> = [];
 
@@ -164,17 +180,37 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
       zoomControl={false}
     >
       <ChangeView
+        locateMe={locateMe}
         centerUpdated={centerUpdated}
         setCenterUpdated={setCenterUpdated}
         center={[current.lat, current.lng]}
         zoom={getZoomLevel(zoomLevel)}
+        setLocateMe={setLocateMe}
       />
-      <LocationMarker />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {positions && <RenderMarkers positions={positions} />}
+      <Box
+        onClick={() => {
+          setLocateMe(!locateMe);
+        }}
+        zIndex={510}
+        position="absolute"
+        bottom="0"
+        left="2"
+        background="#E5dfdf"
+        p={1}
+        borderRadius="lg"
+      >
+        <Image
+          src="/images/location.png"
+          alt={"location"}
+          height={36}
+          width={36}
+        />
+      </Box>
     </MapContainer>
   );
 };
