@@ -198,11 +198,11 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
         }}
         zIndex={510}
         position="absolute"
-        bottom="0"
-        left="2"
+        bottom="6"
+        right="3"
         background="#E5dfdf"
         p={1}
-        borderRadius="lg"
+        borderRadius="full"
       >
         <Image
           src="/images/location.png"
