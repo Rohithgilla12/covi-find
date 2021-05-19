@@ -55,7 +55,7 @@ export const ChangeView: React.FC<ChangeViewProps> = ({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         },
-        zoom
+        10
       );
     });
     setLocateMe(false);
