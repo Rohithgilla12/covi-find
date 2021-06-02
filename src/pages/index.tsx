@@ -1,13 +1,10 @@
 import { Container } from "../components/Container";
-import React, { useState } from "react";
+import React from "react";
 import VercelLogo from "../components/VercelLogo";
-import HomePageOptions from "../types/HomePageOptions";
 import Image from "next/image";
 import { Box, Text } from "@chakra-ui/react";
 
 const Index = () => {
-  const [option, setOption] = useState<HomePageOptions>(HomePageOptions.Home);
-
   return (
     <Container
       background={"#FDFBED"}
