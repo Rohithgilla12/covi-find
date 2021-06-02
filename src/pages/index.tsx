@@ -1,13 +1,9 @@
 import { Container } from "../components/Container";
 import React, { useState } from "react";
 import VercelLogo from "../components/VercelLogo";
-import { HospitalCare } from "../components/home/HospitalCare";
 import HomePageOptions from "../types/HomePageOptions";
 import Image from "next/image";
-import { SimpleGrid } from "@chakra-ui/layout";
 import { Box, Text } from "@chakra-ui/react";
-import ImageTile from "../components/home/ImageTile";
-import { MedicalCare } from "../components/home/MedicalCare";
 
 const Index = () => {
   const [option, setOption] = useState<HomePageOptions>(HomePageOptions.Home);
@@ -27,7 +23,10 @@ const Index = () => {
         <Text color="#008EBE" fontSize="md">
           Covid Resources Near You
         </Text>
-        {option === HomePageOptions.Home && (
+        <Text color="red" fontSize="xl">
+          We have stopped updating.
+        </Text>
+        {/* {option === HomePageOptions.Home && (
           <SimpleGrid p={4} columns={2} spacing={8}>
             <ImageTile
               imagePath="/images/medical.png"
@@ -46,7 +45,7 @@ const Index = () => {
           </SimpleGrid>
         )}
         {option === HomePageOptions.Hospitals && <HospitalCare />}
-        {option === HomePageOptions.MedicalResouces && <MedicalCare />}
+        {option === HomePageOptions.MedicalResouces && <MedicalCare />} */}
       </Box>
       <VercelLogo />
     </Container>
