@@ -1,5 +1,4 @@
-import { Container } from "@chakra-ui/react";
-import dynamic from "next/dynamic";
+import { Container, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useSWR from "swr";
@@ -8,10 +7,6 @@ import { Footer } from "../../components/Footer";
 import VercelLogo from "../../components/VercelLogo";
 import { Options, SelectedButtonContext } from "../../context/ButtonSelection";
 import { fetcher } from "../../utils/fetcher";
-
-const MapComponentNoSSR = dynamic<any>(() => import("../../components/Map"), {
-  ssr: false,
-});
 
 interface HelpMapProps {}
 
@@ -37,7 +32,10 @@ const HelpMap: React.FC<HelpMapProps> = ({}) => {
         py={8}
       >
         <Container px={0}>
-          <MapComponentNoSSR id={id} />
+          {/* <MapComponentNoSSR id={id} /> */}
+          <Text color="red" fontSize="xl">
+            We have stopped updating.
+          </Text>
         </Container>
         {buttonData && (
           <CTA placeId={id as any} buttonData={buttonData.buttons} />

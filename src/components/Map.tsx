@@ -55,7 +55,7 @@ export const ChangeView: React.FC<ChangeViewProps> = ({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         },
-        zoom
+        10
       );
     });
     setLocateMe(false);
@@ -198,11 +198,11 @@ const MapComponent: React.FC<MapComponentProps> = ({ id }) => {
         }}
         zIndex={510}
         position="absolute"
-        bottom="0"
-        left="2"
+        bottom="2"
+        right="2"
         background="#E5dfdf"
         p={1}
-        borderRadius="lg"
+        borderRadius="full"
       >
         <Image
           src="/images/location.png"
